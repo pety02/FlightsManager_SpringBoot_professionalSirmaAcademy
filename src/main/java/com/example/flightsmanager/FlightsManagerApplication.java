@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class FlightsManagerApplication {
-    // comment
     public static void main(String[] args) {
         SpringApplication.run(FlightsManagerApplication.class, args);
     }
