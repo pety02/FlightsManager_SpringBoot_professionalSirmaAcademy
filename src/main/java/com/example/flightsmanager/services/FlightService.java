@@ -1,7 +1,8 @@
 package com.example.flightsmanager.services;
 
-import com.example.flightsmanager.interfaces.Manageable;
 import com.example.flightsmanager.models.Flight;
+import com.example.flightsmanager.repositories.FlightRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,54 +10,39 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FlightService implements Manageable<Flight> {
-    private final List<Flight> flights = new ArrayList<>();
-    @Override
+public class FlightService {
+    @Autowired
+    private FlightRepository flightRepository;
     public List<Flight> getAll() {
-        return flights;
+        return flightRepository.findAll();
     }
 
-    @Override
     public Optional<Flight> getById(long id) {
-        for(Flight flight : flights) {
-            if(flight.getId() == id) {
-                return Optional.of(flight);
-            }
-        }
-
-        return Optional.empty();
+        return flightRepository.findById(id);
     }
 
-    @Override
-    public boolean create(Flight entity) {
-        return flights.add(entity);
+    public Flight create(Flight entity) {
+        return flightRepository.save(entity);
     }
 
-    @Override
-    public boolean update(long id, Flight entity) {
-        for(Flight flight : flights) {
-            if(flight.getId() == id) {
-                flight.setName(entity.getName());
-                flight.setStartDate(entity.getStartDate());
-                flight.setEndDate(entity.getEndDate());
-                flight.setFromPlaceName(entity.getFromPlaceName());
-                flight.setToPlaceName(entity.getToPlaceName());
-                flight.setMaxPassengersCount(entity.getMaxPassengersCount());
-                return true;
-            }
+    public Flight update(long id, Flight entity) {
+
+        Optional<Flight> toBeUpdated = flightRepository.findById(id);
+        if(toBeUpdated.isPresent()) {
+            toBeUpdated.get().setName(entity.getName());
+            toBeUpdated.get().setStartDate(entity.getStartDate());
+            toBeUpdated.get().setEndDate(entity.getEndDate());
+            toBeUpdated.get().setFromPlaceName(entity.getFromPlaceName());
+            toBeUpdated.get().setToPlaceName(entity.getToPlaceName());
+            toBeUpdated.get().setMaxPassengersCount(entity.getMaxPassengersCount());
+            return flightRepository.save(toBeUpdated.get());
         }
 
-        return false;
+        return null;
     }
 
-    @Override
-    public boolean remove(long id) {
-        for(Flight flight : flights) {
-            if(flight.getId() == id) {
-                return flights.remove(flight);
-            }
-        }
-
-        return false;
+    public void remove(long id) {
+        Optional<Flight> toBeDeleted = flightRepository.findById(id);
+        toBeDeleted.ifPresent(flight -> flightRepository.delete(flight));
     }
 }

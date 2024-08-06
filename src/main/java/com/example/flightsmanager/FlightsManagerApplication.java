@@ -28,11 +28,7 @@ public class FlightsManagerApplication implements ApplicationRunner {
         controller.getAll().forEach(f -> System.out.println(f.toString()));
         controller.update(2, new Flight("Canada FLIGHT2", LocalDateTime.now(), LocalDateTime.of(2024, Month.AUGUST, 5, 12, 30, 0), "Sofia, Bulgaria", "Ontario, Canada", 200));
         controller.getById(2).ifPresent(System.out::println);
-        if(controller.remove(1)) {
-            System.out.printf("Successfully removed flight with id %d!%n", 1);
-            controller.getAll().forEach(f -> System.out.println(f.toString()));
-        } else {
-            System.out.printf("Sorry, unsuccessfully removed flight with id %d!%n", 1);
-        }
+
+        controller.getAll().forEach(f -> System.out.println(f.toString()));
     }
 }
