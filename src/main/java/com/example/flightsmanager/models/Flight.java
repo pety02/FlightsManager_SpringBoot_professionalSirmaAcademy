@@ -1,79 +1,66 @@
 package com.example.flightsmanager.models;
 
-import java.time.LocalDateTime;
-import java.util.concurrent.atomic.AtomicLong;
+import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
+import lombok.Getter;
 
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@Table
 public class Flight {
-    private final static AtomicLong count = new AtomicLong();
-    private final long id;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Timestamp
+    @Column(nullable = false)
     private LocalDateTime startDate;
+    @Timestamp
+    @Column(nullable = false)
     private LocalDateTime endDate;
+    @Column(nullable = false)
     private String fromPlaceName;
+    @Column(nullable = false)
     private String toPlaceName;
+    @Column(nullable = false)
+    private int currentPassengersCount;
+    @Column(nullable = false)
     private int maxPassengersCount;
 
     public Flight() {
-        this.id = count.incrementAndGet();
-    }
 
-    public Flight(String name, LocalDateTime startDate, LocalDateTime endDate,
-                  String fromPlaceName, String toPlaceName, int maxPassengersCount) {
-        this.id = count.incrementAndGet();
-        this.setName(name);
+    }
+    public Flight(LocalDateTime startDate, LocalDateTime endDate,
+                  String fromPlaceName, String toPlaceName,
+                  int maxPassengersCount) {
+        this.id = null;
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.setFromPlaceName(fromPlaceName);
         this.setToPlaceName(toPlaceName);
+        this.setCurrentPassengersCount(0);
         this.setMaxPassengersCount(maxPassengersCount);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
     }
 
     public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
-    }
-
-    public String getFromPlaceName() {
-        return fromPlaceName;
     }
 
     public void setFromPlaceName(String fromPlaceName) {
         this.fromPlaceName = fromPlaceName;
     }
 
-    public String getToPlaceName() {
-        return toPlaceName;
-    }
-
     public void setToPlaceName(String toPlaceName) {
         this.toPlaceName = toPlaceName;
     }
 
-    public int getMaxPassengersCount() {
-        return maxPassengersCount;
+    public void setCurrentPassengersCount(int currentPassengersCount) {
+        this.currentPassengersCount = currentPassengersCount;
     }
 
     public void setMaxPassengersCount(int maxPassengersCount) {
@@ -82,11 +69,11 @@ public class Flight {
 
     @Override
     public String toString() {
-        return "name = " + name +
-                ", startDate = " + startDate +
+        return "startDate = " + startDate +
                 ", endDate = " + endDate +
                 ", fromPlaceName = " + fromPlaceName +
                 ", toPlaceName = " + toPlaceName +
+                ", currentPassengersCount = " + currentPassengersCount +
                 ", maxPassengersCount = " + maxPassengersCount;
     }
 }
