@@ -31,7 +31,7 @@ public class FlightService {
 
     public Flight update(long id, Flight entity) {
 
-        Optional<Flight> toBeUpdated = flightRepository.findById(id);
+        /*Optional<Flight> toBeUpdated = flightRepository.findById(id);
         if(toBeUpdated.isPresent()) {
             toBeUpdated.get().setStartDate(entity.getStartDate());
             toBeUpdated.get().setEndDate(entity.getEndDate());
@@ -40,7 +40,7 @@ public class FlightService {
             toBeUpdated.get().setCurrentPassengersCount(entity.getCurrentPassengersCount());
             toBeUpdated.get().setMaxPassengersCount(entity.getMaxPassengersCount());
             return flightRepository.save(toBeUpdated.get());
-        }
+        }*/
 
         return null;
     }
