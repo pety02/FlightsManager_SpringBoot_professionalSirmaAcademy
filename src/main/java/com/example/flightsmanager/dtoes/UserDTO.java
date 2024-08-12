@@ -9,8 +9,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
+    // TODO: to add validation with annotations
     private Long id;
-    @NonNull
     private String name;
     private String family;
     private Gender gender;

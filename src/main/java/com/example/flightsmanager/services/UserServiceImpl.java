@@ -2,9 +2,7 @@ package com.example.flightsmanager.services;
 
 import com.example.flightsmanager.adapters.UserAdapter;
 import com.example.flightsmanager.adapters.UserLoginAdapter;
-import com.example.flightsmanager.adapters.UserRegisterAdapter;
 import com.example.flightsmanager.dtoes.LoginUserDTO;
-import com.example.flightsmanager.dtoes.RegisterUserDTO;
 import com.example.flightsmanager.dtoes.UserDTO;
 import com.example.flightsmanager.models.User;
 import com.example.flightsmanager.repositories.UserRepository;
@@ -18,17 +16,15 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserRegisterAdapter userRegisterAdapter;
+    // TODO: to add more complex bussiness logic validations
     private final UserLoginAdapter userLoginAdapter;
     private final UserAdapter userAdapter;
     private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRegisterAdapter userRegisterAdapter,
-                           UserLoginAdapter userLoginAdapter,
+    public UserServiceImpl(UserLoginAdapter userLoginAdapter,
                            UserAdapter userAdapter,
                            UserRepository userRepository) {
-        this.userRegisterAdapter = userRegisterAdapter;
         this.userLoginAdapter = userLoginAdapter;
         this.userAdapter = userAdapter;
         this.userRepository = userRepository;
@@ -36,9 +32,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public RegisterUserDTO register(RegisterUserDTO dto) {
-        User user = userRegisterAdapter.toEntity(dto);
-        return userRegisterAdapter.toDTO(userRepository.save(user));
+    public UserDTO register(UserDTO dto) {
+        User user = userAdapter.toEntity(dto);
+        return userAdapter.toDTO(userRepository.save(user));
     }
 
     @Override
