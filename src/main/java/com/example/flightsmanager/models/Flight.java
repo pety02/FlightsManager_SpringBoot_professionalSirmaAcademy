@@ -2,7 +2,9 @@ package com.example.flightsmanager.models;
 
 import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;

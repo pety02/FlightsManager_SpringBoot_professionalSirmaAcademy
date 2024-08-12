@@ -29,4 +29,16 @@ public class User {
     private Role role;
     @OneToMany
     private List<Ticket> tickets;
+
+    public User(User other) {
+        this.setId(other.getId());
+        this.setName(other.getName());
+        this.setFamily(other.getFamily());
+        this.setGender(other.getGender());
+        this.setEmail(other.getEmail());
+        this.setUsername(other.getUsername());
+        this.setPassword(other.getPassword());
+        this.setRole(other.getRole());
+        this.setTickets(other.getTickets());
+    }
 }
